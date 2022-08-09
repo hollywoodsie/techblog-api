@@ -33,11 +33,11 @@ export const getAllPosts = async (data) => {
     const result = tag
       ? await PostModel.find({ tags: tag })
           .sort(orderBy)
-          .populate('user', '-_id -__v -passwordHash')
+          .populate('user', '-_id -__v -passwordHash -email')
           .skip(skip)
           .limit(limit)
       : await PostModel.find()
-          .populate('user', '-_id -__v -passwordHash')
+          .populate('user', '-_id -__v -passwordHash -email')
           .sort(orderBy)
           .skip(skip)
           .limit(limit);
@@ -64,7 +64,7 @@ export const getOnePost = async (data) => {
       {
         returnDocument: 'after',
       },
-    ).populate('user', '-_id -__v -passwordHash');
+    ).populate('user', '-_id -__v -passwordHash -email');
   } catch (error) {
     console.log(error);
     throw Error('Error while getting post');
@@ -116,17 +116,5 @@ export const getAllTags = async () => {
   } catch (error) {
     console.log(error);
     throw Error('Error while getting tags');
-  }
-};
-
-export const getSpecificPosts = async (data) => {
-  const { tag } = data.params;
-  try {
-    return (await PostModel.find().populate('user', '-_id -__v -passwordHash'))
-      .reverse()
-      .filter((obj) => obj.tags.includes(tag));
-  } catch (error) {
-    console.log(error);
-    throw Error('Error while getting all posts');
   }
 };
