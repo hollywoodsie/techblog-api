@@ -71,7 +71,7 @@ export const loginUser = async (data) => {
 export const getUser = async (data) => {
   try {
     const user = await UserModel.findById(data.userId);
-    const { passwordHash, _id, ...userData } = user._doc;
+    const { passwordHash, ...userData } = user._doc;
 
     return userData;
   } catch (error) {
