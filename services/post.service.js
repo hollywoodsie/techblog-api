@@ -110,7 +110,6 @@ export const getAllTags = async () => {
     return unique(
       posts
         .map((obj) => obj.tags)
-
         .flat()
         .slice(0, 10),
     );
