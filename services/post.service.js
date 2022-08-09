@@ -21,7 +21,8 @@ export const createPost = async (data) => {
 export const getAllPosts = async (data) => {
   const { tag } = data.query;
   const page = parseInt(data.query.page, 10);
-  const orderBy = data.query.orderBy === 'popular' ? { viewsCount: -1 } : { createdAt: -1 };
+  const orderBy =
+    data.query.orderBy === 'popular' ? { viewsCount: -1 } : { createdAt: -1 };
   const limit = 5;
   const total = tag
     ? await PostModel.countDocuments({ tags: tag })
@@ -31,15 +32,15 @@ export const getAllPosts = async (data) => {
   try {
     const result = tag
       ? await PostModel.find({ tags: tag })
-        .sort(orderBy)
-        .populate('user')
-        .skip(skip)
-        .limit(limit)
+          .sort(orderBy)
+          .populate('user')
+          .skip(skip)
+          .limit(limit)
       : await PostModel.find()
-        .populate('user')
-        .sort(orderBy)
-        .skip(skip)
-        .limit(limit);
+          .populate('user')
+          .sort(orderBy)
+          .skip(skip)
+          .limit(limit);
 
     return { result, pagesCount };
   } catch (error) {
@@ -105,11 +106,11 @@ export const updatePost = async (data) => {
 };
 export const getAllTags = async () => {
   try {
-    const posts = await PostModel.find().limit(10);
+    const posts = await PostModel.find().sort({ createdAt: -1 }).limit(10);
     return unique(
       posts
-        .map((obj) => obj.tags.reverse())
-        .reverse()
+        .map((obj) => obj.tags)
+
         .flat()
         .slice(0, 10),
     );
