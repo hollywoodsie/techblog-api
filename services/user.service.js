@@ -31,7 +31,7 @@ export const createUser = async (data) => {
         expiresIn: '30d',
       },
     );
-    const { passwordHash, ...userData } = user._doc;
+    const { passwordHash, _id, ...userData } = user._doc;
     return { userData, token };
   } catch (error) {
     console.log(error);
@@ -60,7 +60,7 @@ export const loginUser = async (data) => {
         expiresIn: '30d',
       },
     );
-    const { passwordHash, ...userData } = user._doc;
+    const { passwordHash, _id, ...userData } = user._doc;
     return { userData, token };
   } catch (error) {
     console.log(error);
