@@ -18,7 +18,6 @@ export const checkAuth = (req, res, next) => {
   } else {
     return res.status(400).json({
       message: 'Error(checkAuth)',
-      mongo: process.env.MONGODB_URI,
     });
   }
 };
