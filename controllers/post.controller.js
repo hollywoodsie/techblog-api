@@ -2,7 +2,13 @@ import { PostService } from '../services/index.js';
 
 export const create = async (req, res) => {
   try {
-    const newPost = await PostService.createPost(req);
+    const newPost = await PostService.createPost({
+      title: req.body.title,
+      text: req.body.text,
+      imageUrl: req.body.imageUrl,
+      tags: unique(req.body.tags.split(',')),
+      user: req.userId,
+    });
     res.status(200).json(newPost);
   } catch (error) {
     res.status(500).json({ message: error.message });

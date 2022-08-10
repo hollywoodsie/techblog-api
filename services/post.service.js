@@ -4,10 +4,10 @@ import { unique } from '../utils/uniqueTags.js';
 export const createPost = async (data) => {
   try {
     const doc = new PostModel({
-      title: data.body.title,
-      text: data.body.text,
-      imageUrl: data.body.imageUrl,
-      tags: unique(data.body.tags.split(',')),
+      title: data.title,
+      text: data.text,
+      imageUrl: data.imageUrl,
+      tags: data.tags,
       user: data.userId,
     });
 
