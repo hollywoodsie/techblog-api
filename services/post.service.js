@@ -33,11 +33,11 @@ export const getAllPosts = async (data) => {
     const result = tag
       ? await PostModel.find({ tags: tag })
           .sort(orderBy)
-          .populate('user', '-_id -__v -passwordHash -email')
+          .populate('user', '-__v -passwordHash -email')
           .skip(skip)
           .limit(limit)
       : await PostModel.find()
-          .populate('user', '-_id -__v -passwordHash -email')
+          .populate('user', '-__v -passwordHash -email')
           .sort(orderBy)
           .skip(skip)
           .limit(limit);
